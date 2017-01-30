@@ -1,0 +1,103 @@
+    #header.col-md-12 {
+        background:#030303;
+    }
+    #subheader {
+        background: #FF7F50;
+        text-align:center;
+    }
+    #N_graphline {
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: left;
+        background:	#FCEC61;
+        margin-bottom: 5px;
+    }
+    #N_pie {
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: left;
+        background:	#AF7AC5;
+        margin-bottom: 5px;
+    }
+    #N_scatter {
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: left;
+        background:	#F08080;
+        margin-bottom: 5px;
+    }
+    #N_typegraph {
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: center;
+        background:	#7FFFD4;
+        margin-left: 5%;
+    }
+    #N_chEquip {
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: center;
+        background:	#428BD4;
+        margin-left: 3%;
+    }
+    #graphline{
+        /*border: 1px dotted;
+        border-color: #F9E007;
+        border-radius: 6px;*/
+        background:	#FFFFFF;
+        height: auto;/*500px or 100%*/
+    }
+    #scatter {
+        /*border: 1px dotted;
+        border-color: #F9E007;
+        border-radius: 6px;*/
+        background:	#FFFFFF;
+        height: auto;/*500px or 100%*/
+    }
+    #pieshow {
+        /*border: 1px dotted;
+        border-color: #F9E007;
+        border-radius: 6px;*/
+        background:	#FFFFFF;
+        height: auto;/*500px or 100%*/
+    }
+    #typegraph {
+        border: 1px dotted;
+        border-color: #0A8A5F;
+        border-radius: 6px;
+        text-align: center;
+        background:	#C5FFEC;
+        height: 250px;
+        margin-left: 5%;
+    }
+    #chEquip {
+        border: 1px dotted;
+        border-color: #0F85F9;
+        border-radius: 6px;
+        text-align: center;
+        background:	#D4E7F9;
+        height: 250px;
+        margin-left: 3%;
+    }
+    #N_timeScale {
+        background:	#9ACD32;
+        border: 1px groove;
+        border-radius: 5px;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    #timeScale {
+        border: 1px dotted;
+        border-color: #3F5A06;
+        border-radius: 6px;
+        text-align: center;
+        background:	#C7F171;
+        height: auto;
+    }
+    #date {
+        font-size: 12pt;
+    }
+    #consum_show, #consum_hide {
+        font-size: 10pt;
+        font-weight: bold;
+    }
