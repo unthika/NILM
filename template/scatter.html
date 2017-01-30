@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+    
+    <title>Scatterplot</title>
+    
+    <meta name="discription" content="show data of NILM for interact with people">
+    <meta name="autor" content="Unthika Nongbua 56-010126-3028-1 & Tanapum Wongpai 56-010126-3010-8">
+
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #8B0000;
+}
+</style>
+</head>
+
+<body>
+   <div id="scatter_id" style="width: 100%; height: 100%;"></div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+
+<script type="text/javascript">
+  
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var svg = d3.select("#scatter_id").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+/*
+// load csv data ----------------
+d3.csv("../static/real.csv", function(error, data) {
+
+  // change string (from CSV) into number format
+  data.forEach(function(d) {
+    d.Q = +d.Q;
+    d.P= +d.P;
+    //console.log(d);
+  });	
+// end load csv data ------------
+*/
+
+// load json data ----------------
+d3.json("{% url "passing_pq" %}", function(error, data) {
+  data.forEach(function(d) {
+    d.p = +d.p;
+    d.q = +d.q;
+  });
+
+/*
+  // Load .tsv data ----------------------
+  d3.tsv("../static/data.tsv", function(error, data) {
+  if (error) throw error;
+
+  data.forEach(function(d) {
+    d.Q = +d.Q;
+    d.P = +d.P;
+  });
+  // end Load .tsv data ---------------
+*/
+
+  x.domain(d3.extent(data, function(d) { return d.p; }));
+  y.domain(d3.extent(data, function(d) { return d.q; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("P(Watt)");
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Q(Var)")
+
+  svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", function(d) { return x(d.p); })
+      .attr("cy", function(d) { return y(d.q); })
+
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>    
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="discription" content="Virtulization about NILM">
+    <meta name="autor" content="Unthika Nongbua 56-010126-3028-1 & Tanapum Wongpai 56-010126-3010-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><!--for dropdown -->
+    <link rel="stylesheet" type="text/css" href="{% static '../static/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '../static/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '../static/bootstrap-3.3.6-dist/css/bootstrap-responsive.min.css' %}"/>
+    <link rel="stylesheet" type="text/javascript" href="{% static '../static/bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static '../static/my_css.css' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static '../static/favicon.png' %}"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css" />
+	<link rel="stylesheet" type="text/javascript" href="{% static '../static/bootstrap-datepicker-master/js/bootstrap-datepicker.js' %}"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.css" />
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	
+    <title>NILM Virtualization</title>
+
+</head>
+
+<body background="../static/BackgroundIso.svg">
+	<p id="demo"></p>
+<div class="container-fluid" align="center">
+    <div class="row-fluid">
+       <div class="col-md-12" id="header" >
+            <h1><font size="7" color="#FFFFFF"><strong>Nonintrusive Appliance Load Monitoring System</strong></font></h1>
+       </div>
+    </div>
+    
+    <div class="row-fluid" id="subheader" >
+        <div class="col-md-6" id="author"><font size="3">Create by Unthika Nongbua & Tanapum Wongpai</font></div>
+        <div class="col-md-6" id="date"></div>
+    </div></br>
+    
+    <div class="row-fluid">
+		<div class="col-md-5" id="N_graphline"><font size="3"><strong>Electricity</strong></font></div>
+		<div class="col-md-5" id="N_scatter"><font size="3"><strong>Cluster</strong></font></div>
+		<div class="col-md-2">
+            <div class="row-fluid">
+                <div class="col-md-12" id="N_chEquip"><font size="3"><strong>Choose the Equipment</strong></font></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-md-5" id="graphline"></div>
+		<div class="col-md-5" id="scatter"></div>
+        <div class="col-md-2">
+            <div class="row-fluid">	  
+                <div class="col-md-12" id="chEquip_1"></br>
+					<!-- Dropdown -->
+					<div class="btn-group">
+						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ELECTRICITY<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="#"  id="action-fge">Refrigerator</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"  id="action-dwe">Dish washer</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"  id="action-cwe">Clothes washer</a></li>
+						</ul>
+					</div>
+					<!--
+					<input id="fge" class="btn btn-default active" type="image" src="{% static '../static/refrigerator.png' %}" width="90" name="refrigerator" OnClick="keepValue('fge')">
+					<input id="dwe" class="btn btn-default active" type="image" src="{% static '../static/dishwasher.png' %}" width="90" name="dishwasher" OnClick="keepValue('dwe')">
+					<input id="cwe" class="btn btn-default active" type="image" src="{% static '../static/clothesdryers.png' %}" width="90" name="clothesdryers" OnClick="keepValue('cwe')">  
+					-->
+				</div>
+            </div></br>
+            <div class="row-fluid">
+                <div class="row-fluid" id="N_timeScale">
+                    <div class="col-md-12"><font size="3"><strong>Select the Periode</strong></font></div>
+                </div>
+                <div class="row-fluid" id="timeScale_1">
+					<div class="col-md-12"></br>					  
+						<input id="hour" class="btn btn-success active btn-block" type="button" value="HOURS" OnClick="keepValue('hour')">
+						<input id="day" class="btn btn-success active btn-block" type="button" value="DAYS" OnClick="keepValue('day')">
+						<input id="month" class="btn btn-success active btn-block" type="button" value="MONTHS" OnClick="keepValue('month')">  
+						<input id="year" class="btn btn-success active btn-block" type="button" value="YEAR" OnClick="keepValue('year')"></br>	
+					</div>
+				</div></br>
+				<!--<input id="link_showpiechart" class="btn btn-defult active" type="button" value="Energy Consumtion" OnClick='$("#pieshow").load("{% url 'piechart_show_total' %}")'>-->
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid"></br>
+		<div class="col-md-10" id="N_pie"><font size="3"><strong>Energy Consumtion</strong></font></div>
+		<div class="col-md-10" id="pieshow"></div>
+    </div>
+	<div class="row-fluid"></br>
+		<div class="col-md-10">
+			<p><a href="#"  id="consum_show">click to show</a></p>
+		</div>
+		<div class="col-md-10">
+			<p><a href="#"  id="consum_hide"></a></p>
+		</div>
+    </div>
+	<div class="row-fluid"></br>
+		<div class="col-md-10" id="on_percen"></div>
+    </div>
+    
+</div>
+    <script type="text/javascript">
+			var today = new Date();
+            document.getElementById('date').innerHTML = today;
+
+			//graph defult
+        	$("#graphline").load("{% url 'elec_linegraph_passing_pq_hour_fge' %}");
+			$("#scatter").load("{% url 'cluster_interact_hour_fge' %}");
+	
+			jQuery("#consum_show").click(function(e){
+				document.getElementById('consum_show').innerHTML = '';
+				$("#pieshow").load("{% url 'piechart_show_total' %}").show();
+				document.getElementById('consum_hide').innerHTML = 'hide';
+			});
+			jQuery("#consum_hide").click(function(e){
+				document.getElementById('consum_hide').innerHTML = '';
+				$("#pieshow").load("{% url 'piechart_show_total' %}").hide();
+				document.getElementById('consum_show').innerHTML = 'click to show';
+			});
+			
+			
+			jQuery("#action-fge").click(function(e){
+				keepValue('fge');
+			});
+			jQuery("#action-dwe").click(function(e){
+				keepValue('dwe');
+			});
+			jQuery("#action-cwe").click(function(e){
+				keepValue('cwe');
+			});
+			
+			var elec_list = ['fge'];
+			var duration_list = ['hour'];
+			function keepValue (str) {
+				if (str == 'fge' || str == 'dwe' || str == 'cwe') {
+                    elec_list.push(str);
+                }
+				else if (str == 'hour'|| str == 'day'|| str == 'month'|| str == 'year') {
+                    duration_list.push(str);
+                }
+				if (elec_list.length >= 1 && duration_list.length >= 1) {
+                    elec = elec_list.pop();
+					duration = duration_list.pop();
+					selectShow(elec, duration);
+					elec_list = [];
+					duration_list = [];
+					elec_list.push(elec);
+					duration_list.push(duration);
+                }
+			}	
+			
+			function selectShow (elec, duration) {
+                if (elec == 'fge') {
+                    if (duration == 'hour') {
+						$("#graphline").load("{% url 'elec_linegraph_passing_pq_hour_fge' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_fge' %}");
+                    }
+					else if (duration == 'day') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_day_fge' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_fge' %}");
+                    }
+					else if (duration == 'month') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_month_fge' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_fge' %}");
+                    }
+					else if (duration == 'year') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_year_fge' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_fge' %}");
+                    }
+                }
+				else if (elec == 'dwe') {
+                    if (duration == 'hour') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_hour_dwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_dwe' %}");
+                    }
+					else if (duration == 'day') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_day_dwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_dwe' %}");
+                    }
+					else if (duration == 'month') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_month_dwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_dwe' %}");
+                    }
+					else if (duration == 'year') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_year_dwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_dwe' %}");
+                    }
+                }
+				else if (elec == 'cwe') {
+                    if (duration == 'hour') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_hour_cwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_cwe' %}");
+                    }
+					else if (duration == 'day') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_day_cwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_cwe' %}");
+                    }
+					else if (duration == 'month') {
+                        $("#graphline").load("{% url 'elec_linegraph_passing_pq_month_cwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_cwe' %}");
+                    }
+					else if (duration == 'year') {
+                        $("#graphline").load("{% url 'passing_pq_year_cwe' %}");
+						$("#scatter").load("{% url 'cluster_interact_hour_cwe' %}");
+                    }
+                }
+				else{
+					var tem = elec;
+					elec = duration;
+					duration = tem;
+					
+					selectShow (elec, duration);
+				}
+            }
+			
+			
+			$(function () {				
+				$('#datetimepicker6').datetimepicker({
+					format: 'YYYY-MMM-DD HH:mm:00'
+				});
+				$('#datetimepicker7').datetimepicker({
+					format: 'YYYY-MMM-DD HH:mm:00',
+					useCurrent: false //Important! See issue #1075
+				});
+				$("#datetimepicker6").on("dp.change", function (e) {
+					$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+					var test_date6= $("#datetimepicker6").find("input").val();
+					console.log(test_date6);
+					var request_data = { 'start_date': test_date6.toString()};
+						$.ajax({
+							url: 'api/passing_pt_fge.json',
+							type: 'GET',
+							data: { 
+								chanal: JSON.stringify(request_data)
+							},
+						success: function (server_data) {
+							var result = JSON.stringify(server_data);
+							var result_parser = JSON.parse(result).server_data;
+							console.log("success: "+result_parser);
+						}
+						});
+
+				});
+				$("#datetimepicker7").on("dp.change", function (e) {
+					$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+					var test_date7= $("#datetimepicker7").find("input").val();
+					console.log(test_date7);
+				});
+
+			});
+
+    </script>
+</body>
+</html>

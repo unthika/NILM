@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+    
+    <title>Scatterplot</title>
+    
+    <meta name="discription" content="show data of NILM for interact with people">
+    <meta name="autor" content="Unthika Nongbua 56-010126-3028-1 & Tanapum Wongpai 56-010126-3010-8">
+
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  fill: #CC3F0C;
+}
+</style>
+</head>
+
+<body>
+   <div id="scatter_id" style="width: 100%; height: 100%; text-align: left;"></div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+
+<script type="text/javascript">
+  
+var margin3 = {top: 20, right: 200, bottom: 30, left: 40},
+    width3= 630 - margin3.left - margin3.right,
+    height3 = 500 - margin3.top - margin3.bottom;
+
+var x = d3.scale.linear()
+    .range([0, width3]);
+
+var y = d3.scale.linear()
+    .range([height3, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis3 = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis3 = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var chart2 = d3.select("#scatter_id").append("svg")
+    .attr("width", width3 + margin3.left + margin3.right)
+    .attr("height", height3 + margin3.top + margin3.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
+
+
+/*
+// load csv data ----------------
+d3.csv("../static/real.csv", function(error, data) {
+
+  // change string (from CSV) into number format
+  data.forEach(function(d) {
+    d.Q = +d.Q;
+    d.P= +d.P;
+    //console.log(d);
+  });	
+// end load csv data ------------
+*/
+
+// load json data ----------------
+d3.json("{% url "passing_pq_year_fge" %}", function(error, data) {
+  data.forEach(function(d) {
+    d.p = +d.p;
+    d.q = +d.q;
+  });
+
+/*
+  // Load .tsv data ----------------------
+  d3.tsv("../static/data.tsv", function(error, data) {
+  if (error) throw error;
+
+  data.forEach(function(d) {
+    d.Q = +d.Q;
+    d.P = +d.P;
+  });
+  // end Load .tsv data ---------------
+*/
+
+  x.domain(d3.extent(data, function(d) { return d.p; }));
+  y.domain(d3.extent(data, function(d) { return d.q; }));
+
+  chart2.append("g")
+      .attr("class", "x1 axis")
+      .attr("transform", "translate(0," + height3 + ")")
+      .call(xAxis3)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width3)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("P(Watt)");
+
+  chart2.append("g")
+      .attr("class", "y1 axis")
+      .call(yAxis3)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Q(Var)")
+
+  chart2.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", function(d) { return x(d.p); })
+      .attr("cy", function(d) { return y(d.q); })
+
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+});
+
+</script>
+
+</body>
+</html>
